@@ -5,13 +5,21 @@ use uuid::Uuid;
 
 use crate::tab::JoshutoTab;
 
-#[derive(Default)]
 pub struct TabContext {
     pub index: usize,
     pub tab_order: Vec<Uuid>,
     tabs: HashMap<Uuid, JoshutoTab>,
 }
 
+impl std::default::Default for TabContext {
+    fn default() -> Self {
+        Self{
+            index: 0,
+            tab_order: Vec::with_capacity(5),
+            tabs: HashMap::with_capacity(5),
+        }
+    }
+}
 impl TabContext {
     pub fn new() -> Self {
         Self::default()
@@ -38,10 +46,12 @@ impl TabContext {
         let id = &self.tab_order[self.index];
         self.tabs.get_mut(id).unwrap()
     }
+
     pub fn insert_tab(&mut self, id: Uuid, tab: JoshutoTab) {
         self.tabs.insert(id, tab);
         self.tab_order.push(id);
     }
+
     pub fn remove_tab(&mut self, id: &Uuid) -> Option<JoshutoTab> {
         let tab = self.tabs.remove(id);
         for i in 0..self.tab_order.len() {

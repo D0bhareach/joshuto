@@ -173,35 +173,6 @@ fn run_quit(args: &Args, context: &AppContext) -> Result<(), JoshutoError> {
 
 fn main() {
     let args = Args::from_args();
-    // Logging
-    // /* 
-    use log::LevelFilter;
-    // use log4rs::append::console::ConsoleAppender;
-    use log4rs::append::file::FileAppender;
-    use log4rs::encode::pattern::PatternEncoder;
-    use log4rs::config::{Appender, Config, Logger, Root};
-
-    // use log::info;
-    let file_appender = FileAppender::builder()
-        .encoder(Box::new(PatternEncoder::new("{d} - {m}{n}")))
-        .build("log/tab_ops.log")
-        .unwrap();
-
-     let config = Config::builder()
-        // .appender(Appender::builder().build("stdout", Box::new(stdout)))
-        .appender(Appender::builder().build("requests", Box::new(file_appender)))
-        // .logger(Logger::builder().build("app::backend::db", LevelFilter::Info))
-        // .logger(Logger::builder()
-        //     .appender("requests")
-        //     .additive(true)
-        //     .build("app::requests", LevelFilter::Info))
-        .build(Root::builder().appender("requests").build(LevelFilter::Info))
-        .unwrap();
-
-    let _handle = log4rs::init_config(config).unwrap();
-   // */ 
-    // end of Logging
-
     match run_main(args) {
         Ok(exit_code) => process::exit(exit_code),
         Err(e) => {

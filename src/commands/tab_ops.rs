@@ -143,10 +143,17 @@ pub fn new_tab(context: &mut AppContext, mode: &NewTabMode) -> JoshutoResult {
             context.ui_context_ref(),
             context.config_ref().display_options_ref(),
         )?;
+        let tab_order_len = context.tab_context_ref().len();
+        if tab_order_len == 5 {
+            context
+            .message_queue_mut()
+            .push_info("Only five tabs are possible".to_string());
+        } else {
         context.tab_context_mut().insert_tab(id, tab);
-        let new_index = context.tab_context_ref().len() - 1;
-        context.tab_context_mut().index = new_index;
-        _tab_switch(new_index, context)?;
+        context.tab_context_mut().index = tab_order_len -1;
+        _tab_switch(tab_order_len, context)?;
+        }
+
         Ok(())
     } else {
         JoshutoResult::Err(JoshutoError::new(
