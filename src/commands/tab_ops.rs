@@ -41,7 +41,6 @@ fn _tab_switch(new_index: usize, context: &mut AppContext) -> std::io::Result<()
         .curr_tab_ref()
         .option_ref()
         .clone();
-
     let history = context.tab_context_mut().curr_tab_mut().history_mut();
     if history
         .create_or_soft_update(cwd.as_path(), &options, &tab_options)
