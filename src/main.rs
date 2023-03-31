@@ -173,7 +173,6 @@ fn run_quit(args: &Args, context: &AppContext) -> Result<(), JoshutoError> {
 
 fn main() {
     let args = Args::from_args();
-
     match run_main(args) {
         Ok(exit_code) => process::exit(exit_code),
         Err(e) => {
