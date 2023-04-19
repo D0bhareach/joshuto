@@ -25,7 +25,6 @@ pub struct AppProgramRegistryRaw {
 
 #[derive(Debug, Default)]
 pub struct AppProgramRegistry {
-    //    pub _class: HashMap<String, Vec<ProgramEntry>>,
     pub _extension: ExtensionRegistry,
     pub _mimetype: MimetypeRegistry,
 }

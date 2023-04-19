@@ -83,7 +83,6 @@ impl AppCommand for Command {
             Self::SetLineMode(_) => CMD_SET_LINEMODE,
 
             Self::TabSwitch { .. } => CMD_TAB_SWITCH,
-            Self::TabSwitchIndex { .. } => CMD_TAB_SWITCH_INDEX,
             Self::ToggleHiddenFiles => CMD_TOGGLE_HIDDEN,
             Self::TouchFile { .. } => CMD_TOUCH_FILE,
 

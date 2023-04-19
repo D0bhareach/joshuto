@@ -58,7 +58,7 @@ pub fn run_loop(
         // wait for an event and pop it
         let event = match context.poll_event() {
             Ok(event) => event,
-            Err(_) => return Ok(()), // TODO
+            Err(_) => return Ok(()),
         };
 
         // handle the event

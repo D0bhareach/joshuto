@@ -68,7 +68,6 @@ cmd_constants![
     (CMD_SUBPROCESS_BACKGROUND, "spawn"),
     (CMD_SHOW_TASKS, "show_tasks"),
     (CMD_TAB_SWITCH, "tab_switch"),
-    (CMD_TAB_SWITCH_INDEX, "tab_switch_index"),
     (CMD_TOGGLE_HIDDEN, "toggle_hidden"),
     (CMD_TOGGLE_VISUAL, "toggle_visual"),
     (CMD_SWITCH_LINE_NUMBERS, "line_nums"),

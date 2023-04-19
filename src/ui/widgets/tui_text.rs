@@ -20,9 +20,6 @@ pub struct TuiMultilineText<'a> {
 
 impl<'a> TuiMultilineText<'a> {
     pub fn new(s: &'a str, area_width: usize) -> Self {
-        // TODO: This is a very hacky way of doing it and I would like
-        // to clean this up more
-
         let default_style = Style::default().fg(Color::Reset).bg(Color::Reset);
 
         let s_width = s.width();

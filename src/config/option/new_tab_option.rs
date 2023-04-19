@@ -4,7 +4,6 @@ pub enum NewTabMode {
     Default,
     CurrentTabDir,
     CursorDir,
-    Directory(String),
 }
 
 impl NewTabMode {
@@ -13,7 +12,7 @@ impl NewTabMode {
             "" => NewTabMode::Default,
             "--current" => NewTabMode::CurrentTabDir,
             "--cursor" => NewTabMode::CursorDir,
-            dir => NewTabMode::Directory(String::from(dir)),
+            _ => NewTabMode::Default,
         }
     }
 }

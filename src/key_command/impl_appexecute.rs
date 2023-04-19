@@ -99,9 +99,6 @@ impl AppExecute for Command {
                 search_string::search_string(context, pattern.as_str(), false);
                 Ok(())
             }
-            // We call `interactive_execute` on each key press, so even before Enter is pressed the
-            // cursor will be one the selected word. And as `interactive_execute` for
-            // `SearchIncremental` always starts from index 0, this operation will be a no-op
             Self::SearchIncremental { .. } => Ok(()),
             Self::SearchNext => search::search_next(context),
             Self::SearchPrev => search::search_prev(context),
@@ -132,7 +129,6 @@ impl AppExecute for Command {
                 tab_ops::tab_switch(context, *offset)?;
                 Ok(())
             }
-            Self::TabSwitchIndex { index } => tab_ops::tab_switch_index(context, *index),
             Self::Help => show_help::help_loop(context, backend, keymap_t),
 
             Self::SearchFzf => search_fzf::search_fzf(context, backend),

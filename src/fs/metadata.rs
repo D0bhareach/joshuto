@@ -67,7 +67,6 @@ impl JoshutoMetadata {
                     link = s.to_string();
                 }
             }
-
             let exists = path.exists();
             LinkType::Symlink {
                 target: link,

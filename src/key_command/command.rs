@@ -139,11 +139,7 @@ pub enum Command {
     TabSwitch {
         offset: i32,
     },
-    TabSwitchIndex {
-        index: usize,
-    },
     Help,
-
     SearchFzf,
     SubdirFzf,
     Zoxide(String),

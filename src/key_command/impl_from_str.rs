@@ -361,14 +361,6 @@ impl std::str::FromStr for Command {
                     format!("{}: {}", command, e),
                 )),
             }
-        } else if command == CMD_TAB_SWITCH_INDEX {
-            match arg.parse::<usize>() {
-                Ok(s) => Ok(Self::TabSwitchIndex { index: s }),
-                Err(e) => Err(JoshutoError::new(
-                    JoshutoErrorKind::InvalidParameters,
-                    format!("{}: {}", command, e),
-                )),
-            }
         } else if command == CMD_TOUCH_FILE {
             Ok(Self::TouchFile {
                 file_name: arg.to_string(),

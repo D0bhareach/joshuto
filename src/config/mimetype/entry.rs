@@ -80,7 +80,6 @@ impl ProgramEntry {
         self._confirm_exit
     }
 
-    // TODO: Windows support
     pub fn program_exists(&self) -> bool {
         let program = self.get_command();
         env::var_os("PATH")

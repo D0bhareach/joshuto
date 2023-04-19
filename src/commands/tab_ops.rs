@@ -7,8 +7,6 @@ use crate::context::AppContext;
 use crate::error::{JoshutoError, JoshutoErrorKind, JoshutoResult};
 use crate::history::DirectoryHistory;
 use crate::tab::{JoshutoTab, TabHomePage};
-use crate::util::unix;
-
 use crate::HOME_DIR;
 
 use super::quit::{quit_with_action, QuitAction};
@@ -78,19 +76,6 @@ pub fn tab_switch(context: &mut AppContext, offset: i32) -> std::io::Result<()> 
     _tab_switch(new_index, context)
 }
 
-pub fn tab_switch_index(context: &mut AppContext, new_index: usize) -> JoshutoResult {
-    let num_tabs = context.tab_context_ref().len();
-    if new_index <= num_tabs {
-        _tab_switch(new_index - 1, context)?;
-    } else if new_index > num_tabs {
-        for _ in 0..(new_index - num_tabs) {
-            new_tab(context, &NewTabMode::Default)?;
-        }
-        _tab_switch(new_index - 1, context)?;
-    }
-    Ok(())
-}
-
 pub fn new_tab_home_path(context: &AppContext) -> path::PathBuf {
     match context.config_ref().tab_options_ref().home_page() {
         TabHomePage::Home => match HOME_DIR.as_ref() {
@@ -125,16 +110,6 @@ pub fn new_tab(context: &mut AppContext, mode: &NewTabMode) -> JoshutoResult {
                 JoshutoErrorKind::InvalidParameters,
                 "No directory at cursor.".to_string(),
             )),
-        NewTabMode::Directory(directory) => {
-            let directory_path = unix::expand_shell_string(directory);
-            Ok(if directory_path.is_absolute() {
-                directory_path
-            } else {
-                let mut tab_dir = context.tab_context_ref().curr_tab_ref().cwd().to_path_buf();
-                tab_dir.push(directory_path);
-                tab_dir
-            })
-        }
     }?;
     if new_tab_path.exists() && new_tab_path.is_dir() {
         let id = Uuid::new_v4();
@@ -146,12 +121,12 @@ pub fn new_tab(context: &mut AppContext, mode: &NewTabMode) -> JoshutoResult {
         let tab_order_len = context.tab_context_ref().len();
         if tab_order_len == 5 {
             context
-            .message_queue_mut()
-            .push_info("Only five tabs are possible".to_string());
+                .message_queue_mut()
+                .push_info("Only five tabs are possible".to_string());
         } else {
-        context.tab_context_mut().insert_tab(id, tab);
-        context.tab_context_mut().index = tab_order_len -1;
-        _tab_switch(tab_order_len, context)?;
+            context.tab_context_mut().insert_tab(id, tab);
+            context.tab_context_mut().index = tab_order_len - 1;
+            _tab_switch(tab_order_len, context)?;
         }
 
         Ok(())

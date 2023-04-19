@@ -51,7 +51,6 @@ impl std::fmt::Display for Command {
             Self::SubProcess { words, .. } => write!(f, "{} {:?}", self.command(), words),
             Self::Sort(t) => write!(f, "{} {}", self.command(), t),
             Self::TabSwitch { offset } => write!(f, "{} {}", self.command(), offset),
-            Self::TabSwitchIndex { index } => write!(f, "{} {}", self.command(), index),
             _ => write!(f, "{}", self.command()),
         }
     }

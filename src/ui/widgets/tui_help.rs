@@ -16,7 +16,6 @@ lazy_static! {
     static ref DEFAULT_STYLE: Style = Style::default();
     static ref HEADER_STYLE: Style = Style::default().fg(Color::Yellow);
     static ref KEY_STYLE: Style = Style::default().fg(Color::Green);
-    static ref COMMAND_STYLE: Style = Style::default().fg(Color::Blue);
 }
 
 const TITLE: &str = "Keybindings";
@@ -56,12 +55,11 @@ impl<'a> Widget for TuiHelp<'a> {
         keybindings_buffer.resize(keybindings_area);
         let widths = [
             Constraint::Length((width as f32 * 0.12) as u16),
-            Constraint::Length((width as f32 * 0.50) as u16),
-            Constraint::Length((width as f32 * 0.38) as u16),
+            Constraint::Length((width as f32 * 0.88) as u16),
         ];
         let table_widget = Table::new(keymap)
             .header(
-                Row::new(vec!["Key", "Command", "Description"])
+                Row::new(vec!["Key", "Description"])
                     .style(*HEADER_STYLE)
                     .bottom_margin(1),
             )
@@ -105,7 +103,6 @@ pub fn get_keymap_table<'a>(
     for row in raw_rows {
         rows.push(Row::new(vec![
             Cell::from(row[0].clone()).style(*KEY_STYLE),
-            Cell::from(row[1].clone()).style(*COMMAND_STYLE),
             Cell::from(row[2].clone()).style(*DEFAULT_STYLE),
         ]));
     }
@@ -123,7 +120,7 @@ pub fn get_raw_keymap_table<'a>(
     let mut rows = Vec::new();
     for (event, bind) in keymap.iter() {
         let key = key_event_to_string(event);
-        let (command, comment) = match bind {
+        let (command, comment): (_, _) = match bind {
             CommandKeybind::SimpleKeybind(command) => (format!("{}", command), command.comment()),
             CommandKeybind::CompositeKeybind(sub_keymap) => {
                 let mut sub_rows = get_raw_keymap_table(sub_keymap, "", sort_by);

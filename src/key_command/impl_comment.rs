@@ -1,8 +1,9 @@
-use crate::config::option::{LineMode, SortType};
+use super::{Command, CommandComment};
+use crate::config::option::{LineMode, NewTabMode, SortType};
 use crate::io::FileOperationOptions;
 
-use super::{Command, CommandComment};
-
+/// create description for commands used in tui_help.get_raw_keymap_table to get
+/// command description.
 impl CommandComment for Command {
     // These comments are displayed at the help page
     fn comment(&self) -> &'static str {
@@ -21,7 +22,12 @@ impl CommandComment for Command {
             Self::ParentDirectory => "CD to parent directory",
             Self::PreviousDirectory => "CD to the last dir in history",
 
-            Self::NewTab { .. } => "Open a new tab",
+            Self::NewTab { mode } if *mode == NewTabMode::Default => "Open a new tab in ~",
+            Self::NewTab { mode } if *mode == NewTabMode::CurrentTabDir => "Dublicate current tab",
+            Self::NewTab { mode } if *mode == NewTabMode::CursorDir => {
+                "Open a new tab for directory under cursor"
+            }
+            Self::NewTab { .. } => "Open a tab",
             Self::CloseTab => "Close current tab",
             Self::CommandLine { prefix, .. } => match prefix.trim() {
                 "cd" => "Change directory",
@@ -58,7 +64,7 @@ impl CommandComment for Command {
             Self::CursorMoveUp { .. } => "Move cursor up",
             Self::CursorMoveDown { .. } => "Move cursor down",
             Self::CursorMoveHome => "Move cursor to the very top",
-            Self::CursorMoveEnd => "Move cursor to the ver bottom",
+            Self::CursorMoveEnd => "Move cursor to the very bottom",
             Self::CursorMovePageUp(_) => "Move cursor one page up",
             Self::CursorMovePageDown(_) => "Move cursor one page down",
 
@@ -114,8 +120,13 @@ impl CommandComment for Command {
 
             Self::Filter { .. } => "Filter directory list",
 
-            Self::TabSwitch { .. } => "Switch to the next tab",
-            Self::TabSwitchIndex { .. } => "Switch to a given tab",
+            Self::TabSwitch { offset } => {
+                if offset > &0 {
+                    "Switch to the next tab"
+                } else {
+                    "Switch to previous tab"
+                }
+            }
             Self::Help => "Open this help page",
 
             Self::SearchFzf => "Search via fzf",

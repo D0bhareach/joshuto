@@ -13,7 +13,7 @@ pub struct TabContext {
 
 impl std::default::Default for TabContext {
     fn default() -> Self {
-        Self{
+        Self {
             index: 0,
             tab_order: Vec::with_capacity(5),
             tabs: HashMap::with_capacity(5),

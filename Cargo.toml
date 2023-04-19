@@ -1,6 +1,6 @@
 [package]
 name = "joshuto"
-version = "0.9.4"
+version = "0.9.6"
 authors = ["Jiayi Zhao <jeff.no.zhao@gmail.com>"]
 description = "Terminal file manager inspired by ranger"
 homepage = "https://github.com/kamiyaa/joshuto"
@@ -56,3 +56,8 @@ mouse = []
 recycle_bin = [ "trash" ]
 syntax_highlight = [ "ansi-to-tui" ]
 default = [ "devicons", "recycle_bin", "syntax_highlight" ]
+
+[profile.release]
+lto = "thin"
+codegen-units = 1
+opt-level = 3

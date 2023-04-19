@@ -1,6 +1,13 @@
-[![Linux build](https://github.com/kamiyaa/joshuto/actions/workflows/rust-linux-main.yml/badge.svg)](https://github.com/kamiyaa/joshuto/actions/workflows/rust-linux-main.yml)
-
-[![MacOS build](https://github.com/kamiyaa/joshuto/actions/workflows/rust-macos-main.yml/badge.svg)](https://github.com/kamiyaa/joshuto/actions/workflows/rust-macos-main.yml)
+# Fork
+This is the fork from wonderfull [joshuto](https://github.com/kamiyaa/joshuto/)repository.
+## Why I forked?
+* I work solo for so many years, that pick bad habbits, like leave mess in the code
+(comments usually).
+* I move quick and dirty and  may have some funny ideas.
+* I was searching for tool that will simply work. Since I'm on my fork I can do
+whichever feel is more workable for me. Like for example I restrict number of tabs to
+five or implemented closing with Ctrl-C even before I made an issue in joshuto repository.      
+I stil hope that I will make useful contribution to original repository, but if not at least I will nave good tool in my belt.
 
 # joshuto
 
@@ -69,8 +76,7 @@ sudo port install joshuto
 ```
 ~ $ joshuto
 ```
-See [docs#quit](/docs/configuration/keymap.toml.md#quit-quit-joshuto) for exiting into current directory
-and other usages
+See [docs#quit](/docs/configuration/keymap.toml.md#quit-quit-joshuto) for exiting into current directory and other usages
 
 ## Configuration
 
